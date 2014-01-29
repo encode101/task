@@ -6,18 +6,19 @@ jQuery(function(){
 	
 	/* Add Task */
 	$("#save").on({
-		click:function(event){
+		submit:function(event){
 			var data = new Object();			
 			data.id=localStorage.length+1;
-			data.task=$("#task").val();	
+			data.task=$("#newTask").val();	
 			data.startTime= 0;//moment();
 			data.hrs=0;
-			subject.totalHrs=0;
+			data.totalHrs=0;
 			data.status="inactive"	;
 			
 			var fdata = JSON.stringify(data);
 			localStorage.setItem(localStorage.length+1,fdata);	
-			loadList();		
+			loadList();
+			$.mobile.changePage("index.html#home");
 			return false;
 		}
 	});
@@ -27,15 +28,15 @@ jQuery(function(){
 	
 	
 
-	/*	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		Helper Class	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
+	/*	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		Helper Class		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 	
 	// Reset LocalStorage Data
 	
 	$("#resetStore").on({
 		click:function(){
 			localStorage.clear();
-			$.mobile.changePage( 'index.html');
-			console.log("Homepage Loaded");
+			$("#dataList li").remove();
+			//$("#dataList").append("<li class='inactive ui-btn addTask ui-corner-all'><a href='#addtaskPage'>Add Task</a></span></li>");
 		}
 	})
 	
@@ -59,19 +60,20 @@ jQuery(function(){
 					}
 				i++;
 			}
-			$("#dataList").append("<li class='inactive ui-btn addTask ui-corner-all'><a href='#addtaskPage' data-transition='slideup'>Add Task</a></span></li>");
+			//$("#dataList").append("<li class='inactive ui-btn addTask ui-corner-all'><a href='#addtaskPage' data-transition='slideup'>Add Task</a></span></li>");
 		}
 	}
 
-	// Load Status List On Each Page Load Of	***	 STATUS REPORT *** Page
+	// Load Status List On Each Page Load Of	***	 STATUS REPORT *** Panel
 	
 	$(document).on("pagebeforeshow","#status",function(){
 		//updateDiff();
 		 function statusList(){
-			 $("#statusList tr").remove();
+			$("#statusList tr").remove();
+			$("#statusList").append("<tr class='tableHeader' id='statusList'><td width='40%'>Task Name</td><td width='30%'>Current Time</td><td width='30%'>Total Time</td></tr>");
 			var i = 1;
 			if(localStorage.length=0){
-				$("#statusList").append("<li>NO Data</li>");
+				$("#statusList").append("<tr><td>NO Data</td></tr>");
 			}else{				
 				while(i<=localStorage.length){						
 					var subject=JSON.parse(localStorage.getItem(i));	// Parsing String To Object
@@ -79,7 +81,7 @@ jQuery(function(){
 						$("#statusList").append("<tr><td width='40%' id="+subject.id+">"+subject.task+"</td><td width='30%'>"+subject.hrs+"</td><td width='30%'>"+subject.totalHrs+"</td></tr>");
 					}else{
 						updateDiff();
-						$("#statusList").append("<tr><td width='40%' id="+subject.id+">"+subject.task+"</td><td width='30%'>"+subject.hrs+"</td></td><td width='30%'>"+subject.totalHrs+"</td></tr>");
+						$("#statusList").append("<tr><td width='40%' id="+subject.id+">"+subject.task+"</td><td width='30%'>"+subject.hrs+"</td><td width='30%'>"+subject.totalHrs+"</td></tr>");
 					}
 				i++;
 				}
@@ -123,24 +125,20 @@ jQuery(function(){
 			$(this).addClass("active");
 			subject.startTime=moment();
 			subject.status="active"									
+			
 			var fdata = JSON.stringify(subject);
 			localStorage.setItem($(this).attr("id"),fdata);
 			
 		} else if(subject.status=="active"){
-			$(this).removeClass("active");
-			var now = moment();
-			var then = moment(subject.startTime);
-	
-			var ms = moment(now,"DD/MM/YYYY HH:mm:ss").diff(moment(then,"DD/MM/YYYY HH:mm:ss"));
-			var d = moment.duration(ms);
-			var s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss");
-			console.log(s);
-			subject.status="inactive";
+			$(this).removeClass("active");			
+			updateDiff();
+			subject.status="inactive";			
 			subject.startTime=0;
-			//var prevHrs = subject.hrs;
-			//subject.hrs=moment().add(prevHrs,s);
-			subject.hrs=(s);
-			subject.totalHrs = moment().add(s+subject.hrs);
+			subject.pauseTime=moment();
+			var a = moment(subject.startTime);
+			var b = moment(subject.pauseTime);
+			
+			console.log(moment(b.from(a)));
 			var fdata = JSON.stringify(subject);
 			localStorage.setItem($(this).attr("id"),fdata);
 		}			

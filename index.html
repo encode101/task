@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="format-detection" content="telephone=no" />
 <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height,target-densitydpi=device-dpi" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"/>
 <link rel="stylesheet" href="css/jquery.mobile-1.4.0.css" />
 <link rel="stylesheet" href="themes/css/jqtouch.css" />
 <link rel="stylesheet" href="css/custom.css" />
@@ -16,73 +16,50 @@
 
 <div data-role="page" id="home">
   <div class="ui-header" data-role="header" data-theme="a" data-position="fixed" >
-    <h1><img src="img/logo.png" alt="Task Planner"></h1>
+    <h1><img src="img/taskManager.png" alt="Task Planner"></h1>
  </div>
- <div data-role="navbar">
-        <ul>
-            <li><a href="#status" data-icon="clock" data-transition="fade" data-theme="b">Reports</a></li>
-            <li><a href="index.html" data-icon="recycle" data-theme="b" id="resetStore">Reset</a></li>
-            <li><a href="#status" data-icon="grid" data-transition="fade" data-theme="b">View Stats</a></li>
-        </ul>
-    </div><!-- /navbar -->
   <div data-role="content" class="ui-panel-page-container"> 
     <!-- Content -->
+    <div class="takeTask">
+    	<form id="save"><input type="text" class="form-control addTaskInput" placeholder="Add New Task" id="newTask" /></form>
+    </div>
     <div id="data">
       <ul id="dataList">
       </ul>
     </div>
   </div>
-</div>
-
-<!-- View Stats -->
-
-<div data-role="page" id="status">
-  <div class="ui-header" data-role="header" data-theme="a" data-position="fixed" >
-    <h1><img src="img/logo.png" alt="Task Planner"></h1>
- </div>
- <div data-role="navbar">
+  <div class="footer" data-role="footer" data-position="fixed">
+  	<div data-role="navbar">
         <ul>
-            <li><a href="#home" data-icon="eye" data-transition="fade" data-theme="b" >Dashboard</a></li>
-            <li><a href="#status" data-icon="refresh" data-transition="fade" data-theme="b" id="reloadStats">Refresh Stats</a></li>
+            <li><a href="#status" data-icon="clock" data-transition="none" data-theme="b">Reports</a></li>
+            <li><a href="index.html" data-icon="recycle" data-theme="b" id="resetStore">Reset</a></li>
         </ul>
     </div><!-- /navbar -->
-  <div data-role="content" class="ui-panel-page-container"> 
-    <!-- Content -->
-    <table id="statusList" width="100%" class="table ui-table table-stripe">
-    	<tr class="tableHeader">
-            <td width="40%">Task Name</td>
-            <td width="30%">Current Time</td>
-            <td width="30%">Total Time</td>
-        </tr>
-    </table>
   </div>
 </div>
-
-<!-- Create Task Modal	-->
-
-<div data-role="page" id="addtaskPage" data-dialog="true">
-  <div class="ui-header" data-role="header" data-theme="a" data-position="fixed" >
-    <h1><img src="img/logo.png" width="176" height="44" alt="Task Planner"></h1>
+<!-- View -->
+<div data-role="page" id="status"> 
+<div class="ui-header" data-role="header" data-theme="a" data-position="fixed" >
+    <h1><img src="img/taskManager.png" alt="Task Planner"></h1>
  </div>
-  <div data-role="content" class="ui-panel-page-container"> 
     <!-- Content -->
-    <table width="100%" cellpadding="5">
-      <tr>
-        <td><textarea name="task"  id="task"></textarea></td>
-      </tr>
-      <tr>
-        <td><button id="save">Save</button></td>
-      </tr>
-    </table>
+    <div data-role="content" class="ui-panel-page-container">
+    	<table id='statusList' width='100%' class='table ui-table table-stripe'></table>
+    </div>
+    <div class="footer" data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home" data-icon="home" data-transition="none" data-theme="b">Dashboard</a></li>
+                <li><a href="index.html" data-icon="recycle" data-theme="b" id="resetStore">Reset</a></li>
+            </ul>
+        </div>
   </div>
 </div>
-<!-- <script type="text/javascript" src="js/cordova.js"></script> -->
+
 <script type="text/javascript" src="js/index.js"></script> 
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script> 
-<!-- <script type="text/javascript" src="js/lib/zepto.min.js"></script> -->
 <script type="text/javascript" src="js/jquery.mobile-1.4.0.min.js"></script>
 <script type="text/javascript" src="js/moment.min.js"></script>
-<script type="text/javascript" src="js/jqtouch.min.js"></script> 
 <script type="text/javascript" src="js/script.js"></script> 
 <script type="text/javascript">
 	
