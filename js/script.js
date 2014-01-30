@@ -18,6 +18,7 @@ jQuery(function(){
 			var fdata = JSON.stringify(data);
 			localStorage.setItem(localStorage.length+1,fdata);	
 			loadList();
+			$("#newTask").val("");
 			$.mobile.changePage("index.html#home");
 			return false;
 		}
@@ -134,11 +135,13 @@ jQuery(function(){
 			updateDiff();
 			subject.status="inactive";			
 			subject.startTime=0;
-			subject.pauseTime=moment();
-			var a = moment(subject.startTime);
-			var b = moment(subject.pauseTime);
 			
-			console.log(moment(b.from(a)));
+			subject.totalHrs= moment().format('h:mm:ss');
+			
+			var ms = moment(now,"DD/MM/YYYY HH:mm:ss").diff(moment(then,"DD/MM/YYYY HH:mm:ss"));
+			var d = moment.duration(ms);
+			var s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss");
+			
 			var fdata = JSON.stringify(subject);
 			localStorage.setItem($(this).attr("id"),fdata);
 		}			
@@ -152,6 +155,15 @@ jQuery(function(){
 			console.log("Reload Called");
 		}
 	})
+	
+	/* Caluculate Time Diff */
+	
+	function timeDiff(now,then){
+		var ms = moment(now,"DD/MM/YYYY HH:mm:ss").diff(moment(then,"DD/MM/YYYY HH:mm:ss"));
+		var d = moment.duration(ms);
+		var s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss");
+		return s;
+	}
 });
 
 /*

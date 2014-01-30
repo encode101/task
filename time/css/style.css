@@ -1,0 +1,29 @@
+@charset "utf-8";
+/* CSS Document */
+ul{list-style:none; margin:0px; padding:0px;}
+li{line-height:20px;}
+
+.ui-li-static.ui-collapsible > .ui-collapsible-heading {
+    margin: 0;
+}
+.ui-li-static.ui-collapsible {
+    padding: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-heading > .ui-btn {
+    border-top-width: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-heading.ui-collapsible-heading-collapsed > .ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-content {
+    border-bottom-width: 0;
+}
+
+.inscence{margin:0px; padding:0px;}
+.active{color:#090;}
+#addTaskContent{display:none;}
+
+h1,h2{font:normal 12px Verdana, Geneva, sans-serif;}
+.clearFix{clear:both; height:80px;}
+*{box-shadow:0 0 0px #3388CC!important;}
+.taskListElement{font:normal 14px Arial, Helvetica, sans-serif;}
+
+/* .addTaskBtn{background:#069!important; color:#FFF!important; text-shadow:none!important;} */
